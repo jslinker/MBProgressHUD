@@ -328,8 +328,8 @@ typedef void (^MBProgressHUDCompletionBlock)();
  */
 @property (MB_STRONG) UIColor *color;
 
-/**
- * The x-axis offset of the HUD relative to the centre of the superview.
+/** 
+ * The x-axis offset of the HUD relative to the centre of the superview. 
  */
 @property (assign) float xOffset;
 

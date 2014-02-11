@@ -18,16 +18,16 @@
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
-	#define MBLabelAlignmentCenter NSTextAlignmentCenter
+    #define MBLabelAlignmentCenter NSTextAlignmentCenter
 #else
-	#define MBLabelAlignmentCenter UITextAlignmentCenter
+    #define MBLabelAlignmentCenter UITextAlignmentCenter
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
 	#define MB_TEXTSIZE(text, font) [text length] > 0 ? [text \
 		sizeWithAttributes:@{NSFontAttributeName:font}] : CGSizeZero;
 #else
-#define MB_TEXTSIZE(text, font) [text length] > 0 ? [text sizeWithFont:font] : CGSizeZero;
+	#define MB_TEXTSIZE(text, font) [text length] > 0 ? [text sizeWithFont:font] : CGSizeZero;
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
@@ -36,7 +36,7 @@
 		attributes:@{NSFontAttributeName:font} context:nil].size : CGSizeZero;
 #else
 	#define MB_MULTILINE_TEXTSIZE(text, font, maxSize, mode) [text length] > 0 ? [text \
-sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSizeZero;
+		sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSizeZero;
 #endif
 
 
@@ -267,7 +267,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 			self.minShowTimer = [NSTimer scheduledTimerWithTimeInterval:(self.minShowTime - interv) target:self
 															   selector:@selector(handleMinShowTimer:) userInfo:nil repeats:NO];
 			return;
-		}
+		} 
 	}
 	// ... otherwise hide the HUD immediately
 	[self hideUsingAnimation:useAnimation];
@@ -379,7 +379,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 - (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated {
 	methodForExecution = method;
 	targetForExecution = MB_RETAIN(target);
-	objectForExecution = MB_RETAIN(object);
+	objectForExecution = MB_RETAIN(object); 
 	// Launch execution in new thread
 	self.taskInProgress = YES;
 	[NSThread detachNewThreadSelector:@selector(launchExecution) toTarget:self withObject:nil];
@@ -504,7 +504,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		if (mode == MBProgressHUDModeAnnularDeterminate) {
 			[(MBRoundProgressView *)indicator setAnnular:YES];
 		}
-	}
+	} 
 	else if (mode == MBProgressHUDModeCustomView && customView != indicator) {
 		// Update custom view indicator
 		[indicator removeFromSuperview];
@@ -547,8 +547,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	if (labelSize.height > 0.f && indicatorF.size.height > 0.f) {
 		totalSize.height += kPadding;
 	}
-	
-	CGFloat remainingHeight = bounds.size.height - totalSize.height - kPadding - 4 * margin;
+
+	CGFloat remainingHeight = bounds.size.height - totalSize.height - kPadding - 4 * margin; 
 	CGSize maxSize = CGSizeMake(maxWidth, remainingHeight);
 	CGSize detailsLabelSize = MB_MULTILINE_TEXTSIZE(detailsLabel.text, detailsLabel.font, maxSize, detailsLabel.lineBreakMode);
 	totalSize.width = MAX(totalSize.width, detailsLabelSize.width);
@@ -609,7 +609,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	}
 	if (totalSize.width < minSize.width) {
 		totalSize.width = minSize.width;
-	}
+	} 
 	if (totalSize.height < minSize.height) {
 		totalSize.height = minSize.height;
 	}
@@ -628,7 +628,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		//Gradient colours
 		size_t gradLocationsNum = 2;
 		CGFloat gradLocations[2] = {0.0f, 1.0f};
-		CGFloat gradColors[8] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.75f};
+		CGFloat gradColors[8] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.75f}; 
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 		CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, gradColors, gradLocations, gradLocationsNum);
 		CGColorSpaceRelease(colorSpace);
@@ -721,7 +721,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 
 - (void)registerForNotifications {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver:self selector:@selector(deviceOrientationDidChange:)
+	[nc addObserver:self selector:@selector(deviceOrientationDidChange:) 
 			   name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
@@ -729,7 +729,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)deviceOrientationDidChange:(NSNotification *)notification {
+- (void)deviceOrientationDidChange:(NSNotification *)notification { 
 	UIView *superview = self.superview;
 	if (!superview) {
 		return;
@@ -741,7 +741,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	}
 }
 
-- (void)setTransformForCurrentOrientation:(BOOL)animated {
+- (void)setTransformForCurrentOrientation:(BOOL)animated {	
 	// Stay in sync with the superview
 	if (self.superview) {
 		self.bounds = self.superview.bounds;
@@ -751,7 +751,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
 	CGFloat radians = 0;
 	if (UIInterfaceOrientationIsLandscape(orientation)) {
-		if (orientation == UIInterfaceOrientationLandscapeLeft) { radians = -(CGFloat)M_PI_2; }
+		if (orientation == UIInterfaceOrientationLandscapeLeft) { radians = -(CGFloat)M_PI_2; } 
 		else { radians = (CGFloat)M_PI_2; }
 		// Window coordinates differ!
 		self.bounds = CGRectMake(0, 0, self.bounds.size.height, self.bounds.size.width);
