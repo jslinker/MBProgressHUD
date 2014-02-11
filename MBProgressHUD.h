@@ -60,27 +60,27 @@ typedef enum {
 
 #ifndef MB_INSTANCETYPE
 #if __has_feature(objc_instancetype)
-#define MB_INSTANCETYPE instancetype
+	#define MB_INSTANCETYPE instancetype
 #else
-#define MB_INSTANCETYPE id
+	#define MB_INSTANCETYPE id
 #endif
 #endif
 
 #ifndef MB_STRONG
 #if __has_feature(objc_arc)
-#define MB_STRONG strong
+	#define MB_STRONG strong
 #else
-#define MB_STRONG retain
+	#define MB_STRONG retain
 #endif
 #endif
 
 #ifndef MB_WEAK
 #if __has_feature(objc_arc_weak)
-#define MB_WEAK weak
+	#define MB_WEAK weak
 #elif __has_feature(objc_arc)
-#define MB_WEAK unsafe_unretained
+	#define MB_WEAK unsafe_unretained
 #else
-#define MB_WEAK assign
+	#define MB_WEAK assign
 #endif
 #endif
 
@@ -267,7 +267,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
  * @see completionBlock
  */
 - (void)showAnimated:(BOOL)animated whileExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue
-	 completionBlock:(MBProgressHUDCompletionBlock)completion;
+		  completionBlock:(MBProgressHUDCompletionBlock)completion;
 
 /**
  * A block that gets called after the HUD was completely hidden.
@@ -459,7 +459,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
 
 
 /**
- * A flat bar progress view.
+ * A flat bar progress view. 
  */
 @interface MBBarProgressView : UIView
 

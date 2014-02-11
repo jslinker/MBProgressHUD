@@ -8,34 +8,34 @@
 
 
 #if __has_feature(objc_arc)
-#define MB_AUTORELEASE(exp) exp
-#define MB_RELEASE(exp) exp
-#define MB_RETAIN(exp) exp
+	#define MB_AUTORELEASE(exp) exp
+	#define MB_RELEASE(exp) exp
+	#define MB_RETAIN(exp) exp
 #else
-#define MB_AUTORELEASE(exp) [exp autorelease]
-#define MB_RELEASE(exp) [exp release]
-#define MB_RETAIN(exp) [exp retain]
+	#define MB_AUTORELEASE(exp) [exp autorelease]
+	#define MB_RELEASE(exp) [exp release]
+	#define MB_RETAIN(exp) [exp retain]
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
-#define MBLabelAlignmentCenter NSTextAlignmentCenter
+	#define MBLabelAlignmentCenter NSTextAlignmentCenter
 #else
-#define MBLabelAlignmentCenter UITextAlignmentCenter
+	#define MBLabelAlignmentCenter UITextAlignmentCenter
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-#define MB_TEXTSIZE(text, font) [text length] > 0 ? [text \
-sizeWithAttributes:@{NSFontAttributeName:font}] : CGSizeZero;
+	#define MB_TEXTSIZE(text, font) [text length] > 0 ? [text \
+		sizeWithAttributes:@{NSFontAttributeName:font}] : CGSizeZero;
 #else
 #define MB_TEXTSIZE(text, font) [text length] > 0 ? [text sizeWithFont:font] : CGSizeZero;
 #endif
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-#define MB_MULTILINE_TEXTSIZE(text, font, maxSize, mode) [text length] > 0 ? [text \
-boundingRectWithSize:maxSize options:(NSStringDrawingUsesLineFragmentOrigin) \
-attributes:@{NSFontAttributeName:font} context:nil].size : CGSizeZero;
+	#define MB_MULTILINE_TEXTSIZE(text, font, maxSize, mode) [text length] > 0 ? [text \
+		boundingRectWithSize:maxSize options:(NSStringDrawingUsesLineFragmentOrigin) \
+		attributes:@{NSFontAttributeName:font} context:nil].size : CGSizeZero;
 #else
-#define MB_MULTILINE_TEXTSIZE(text, font, maxSize, mode) [text length] > 0 ? [text \
+	#define MB_MULTILINE_TEXTSIZE(text, font, maxSize, mode) [text length] > 0 ? [text \
 sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSizeZero;
 #endif
 
@@ -342,7 +342,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		} else if (animationType == MBProgressHUDAnimationZoomOut) {
 			self.transform = CGAffineTransformConcat(rotationTransform, CGAffineTransformMakeScale(0.5f, 0.5f));
 		}
-		
+
 		self.alpha = 0.02f;
 		[UIView commitAnimations];
 	}
@@ -413,7 +413,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
             [self cleanUp];
         });
     });
-	[self show:animated];
+  [self show:animated];
 }
 
 #endif
@@ -623,7 +623,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	UIGraphicsPushContext(context);
-	
+
 	if (self.dimBackground) {
 		//Gradient colours
 		size_t gradLocationsNum = 2;
@@ -642,14 +642,14 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 									 kCGGradientDrawsAfterEndLocation);
 		CGGradientRelease(gradient);
 	}
-	
+
     // Set background rect color
     if (self.color) {
         CGContextSetFillColorWithColor(context, self.color.CGColor);
     } else {
         CGContextSetGrayFillColor(context, 0.0f, self.opacity);
     }
-	
+
 	
 	// Center HUD
 	CGRect allRect = self.bounds;
@@ -665,7 +665,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	CGContextAddArc(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect) + radius, radius, (float)M_PI, 3 * (float)M_PI / 2, 0);
 	CGContextClosePath(context);
 	CGContextFillPath(context);
-	
+
 	UIGraphicsPopContext();
 }
 
@@ -756,7 +756,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		// Window coordinates differ!
 		self.bounds = CGRectMake(0, 0, self.bounds.size.height, self.bounds.size.width);
 	} else {
-		if (orientation == UIInterfaceOrientationPortraitUpsideDown) { radians = (CGFloat)M_PI; }
+		if (orientation == UIInterfaceOrientationPortraitUpsideDown) { radians = (CGFloat)M_PI; } 
 		else { radians = 0; }
 	}
 	rotationTransform = CGAffineTransformMakeRotation(radians);
